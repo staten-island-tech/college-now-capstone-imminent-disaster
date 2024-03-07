@@ -10,4 +10,5 @@ mongoose
 
 mongoose.connection.on("error", (err) => {
   console.log(`${err.message}`);
+  console.log("mongoose error");
 });
