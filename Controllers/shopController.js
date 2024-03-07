@@ -1,4 +1,4 @@
-const Deck = require("../Models/shops");
+const Deck = require("../models/shops");
 exports.homePage = async (req, res) => {
   const decks = ["Whalen's Deck", "Meta Deck"];
   try {
