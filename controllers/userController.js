@@ -1,5 +1,6 @@
 const User = require("../models/user");
-
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 exports.authMiddleware = (req, res, next) => {
   if (req.body.user) {
     next();
