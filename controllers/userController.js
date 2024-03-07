@@ -1,6 +1,14 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+const generateToken = async function (user) {
+  const token = jwt.sign({ _id: user._id }, `${process.env.SECRET}`, {
+    expiresIn: 60 * 60,
+  });
+  return token;
+};
+
 exports.authMiddleware = (req, res, next) => {
   if (req.body.user) {
     next();
