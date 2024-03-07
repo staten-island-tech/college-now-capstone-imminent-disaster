@@ -9,5 +9,5 @@ mongoose
   .then(() => console.log("Connected to DB"));
 
 mongoose.connection.on("error", (err) => {
-  console.log(`${error.message}`);
+  console.log(`${err.message}`);
 });
