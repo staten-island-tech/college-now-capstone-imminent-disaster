@@ -6,7 +6,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("connected"));
+  .then(() => console.log("Connected to DB"));
 
 mongoose.connection.on("error", (err) => {
   console.log(`${error.message}`);
