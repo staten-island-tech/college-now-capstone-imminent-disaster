@@ -1,13 +1,6 @@
 const express = require("express");
 const router = new express.Router();
-
-router
-  .get("/", async (req, res) => {
-    try {
-      return res.send("We're live");
-    } catch (error) {}
-    console.log(error);
-  })
-
+const shopController = require("../Controllers/shopController");
+router.get("/", shopController.homePage);
 
 module.exports = router;
