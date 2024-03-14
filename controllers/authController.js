@@ -12,10 +12,10 @@ const generateToken = async function (user) {
 
 exports.register = async function (req, res) {
   if (!req.body.username || !req.body.password) {
-    res.json({ success: false, msg: "Please put a username and password." });
+    res.json({ success: false, msg: "Please pass username and password." });
   } else {
     console.log(req.body.password);
-    var newUser = new user({
+    let newUser = new user({
       username: req.body.username,
       password: req.body.password,
     });
@@ -23,7 +23,7 @@ exports.register = async function (req, res) {
     await newUser.save();
     res.json({
       success: true,
-      msg: "Successfully created new user.",
+      msg: "Successful created new user.",
       newUser,
       token,
     });
