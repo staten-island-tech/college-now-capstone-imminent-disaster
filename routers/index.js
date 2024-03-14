@@ -1,12 +1,12 @@
 const express = require("express");
 const router = new express.Router();
-const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 const shopController = require("../controllers/shopController");
 
 router.get("/", shopController.homePage);
 router.post("/add", shopController.createShop);
-router.post("/user/add", userController.createUser);
-router.get("/user/profile", userController.getProfile);
-router.patch("/user/:username", userController.updateUser);
+router.post("/register", authController.register);
+router.post("/login", authController.login);
+router.get("/protected", authController.authCheck, authController.protected);
 
 module.exports = router;

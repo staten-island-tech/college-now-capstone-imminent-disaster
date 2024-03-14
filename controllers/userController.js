@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/user.js");
 
 exports.authMiddleware = (req, res, next) => {
   if (req.body.user) {
