@@ -1,7 +1,7 @@
 const user = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config({ path: "variable.env" });
+require("dotenv").config({ path: "variables.env" });
 
 const generateToken = async function (user) {
   const token = jwt.sign({ _id: user._id }, `${process.env.SECRET}`, {
@@ -45,7 +45,6 @@ exports.login = async (req, res) => {
     if (!isMatch) {
       throw new Error("Unable to login");
     }
-
     res.send({ user, token });
   } catch (error) {
     console.log(error);
@@ -68,7 +67,7 @@ exports.authCheck = async (req, res, next) => {
     req.user = user;
     next();
   } catch (e) {
-    res.statues(401).send({ error: "Please authenticate." });
+    res.status(401).send({ error: "Please authenticate." });
   }
 };
 
