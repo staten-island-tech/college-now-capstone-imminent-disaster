@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const bcrypt = require("bcryptjs");
+const uniqueValidator = require("mongoose-unique-validator");
+const bcrypt = require("brcryptjs");
 
 const userSchema = new Schema({
   username: {
@@ -22,7 +22,7 @@ const userSchema = new Schema({
   ],
 });
 
-userSchema.pre("save", async function (next) {
+UserSchema.pre("save", async function (next) {
   const user = this;
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
@@ -31,7 +31,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.comparePassword = function (passw, cb) {
+UserSchema.methods.comparePassword = function (passw, cb) {
   bcrypt.compare(passw, this.password, function (err, isMatch) {
     if (err) {
       return cb(err);
@@ -39,5 +39,7 @@ userSchema.methods.comparePassword = function (passw, cb) {
     cb(null, isMatch);
   });
 };
+
+userSchema.plugin(uniqueValidator, { message: "is already taken" });
 
 module.exports = mongoose.model("User", userSchema);
