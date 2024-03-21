@@ -1,5 +1,5 @@
-const user = require("../models/user");
-const bcrypt = require("bcryptjs");
+const User = require("../models/user");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "variables.env" });
 
@@ -15,7 +15,7 @@ exports.register = async function (req, res) {
     res.json({ success: false, msg: "Please pass username and password." });
   } else {
     console.log(req.body.password);
-    let newUser = new user({
+    let newUser = new User({
       username: req.body.username,
       password: req.body.password,
     });
@@ -32,9 +32,9 @@ exports.register = async function (req, res) {
 
 exports.login = async (req, res) => {
   try {
-    let username = req.body.username;
-    let password = req.body.password;
-    const user = await user.findOne({ username });
+    var username = req.body.username;
+    var password = req.body.password;
+    const user = await User.findOne({ username });
 
     if (!user) {
       throw new Error("Unable to login");
@@ -56,7 +56,7 @@ exports.authCheck = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, `${process.env.SECRET}`);
-    const user = await user.findOne({
+    const user = await User.findOne({
       _id: decoded._id,
     });
 

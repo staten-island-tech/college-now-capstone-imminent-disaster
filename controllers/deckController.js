@@ -1,4 +1,4 @@
-const deck = require("../models/decks");
+const Deck = require("../models/decks");
 const path = require("path");
 const multer = require("multer");
 
@@ -26,21 +26,48 @@ const multerOptions = {
 exports.upload = multer(multerOptions).single("photo");
 
 exports.homePage = async (req, res) => {
-  const decks = ["Whalen's Deck", "Meta Deck"];
   try {
+    const decks = await Deck.find({});
     console.log(req.name);
     res.json([decks, req.name]);
-    return res.send("We're live");
-  } catch (error) {}
-  console.log(error);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-exports.createDeck = async (res, req) => {
+exports.createDeck = async (req, res) => {
   try {
-    const deck = new deck(req.body);
-    deck.photo = req.file.path;
+    console.log("hai");
+    const deck = new Deck(req.body);
+    // deck.photo = req.file.path;
+    console.log("hewwo");
     await deck.save();
+    console.log(deck.name);
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+exports.updateDeck = async (req, res) => {
+  try {
+    const deck = await Deck.findById(req.params.id);
+    const updates = Object.keys(req.body);
+    updates.forEach((update) => (deck[update] = req.body[update]));
+    await deck.save();
+    res.json(deck);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.deleteDeck = async (req, res) => {
+  try {
+    const deck = await Deck.findByIdAndDelete(req.params.id);
+    if (!deck) {
+      res.status(404).send();
+    }
+    res.send(`${shop} was removed`);
+  } catch (error) {
+    res.status(500).send(error);
   }
 };

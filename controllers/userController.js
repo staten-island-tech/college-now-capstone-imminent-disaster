@@ -36,7 +36,7 @@ exports.updateUser = async (req, res) => {
     const user = await user.findById(req.params.id);
     const updates = Object.keys(req.body);
     console.log(updates);
-    rees.json(updates);
+    res.json(updates);
   } catch (error) {
     console.log(error);
     console.log("update error");

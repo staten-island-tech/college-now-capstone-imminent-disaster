@@ -25,4 +25,4 @@ deckSchema.pre("save", function (next) {
   next();
 });
 
-mongoose.model.exports = mongoose.model("deck", deckSchema);
+module.exports = mongoose.model("Deck", deckSchema);
