@@ -23,7 +23,7 @@ exports.register = async function (req, res) {
     await newUser.save();
     res.json({
       success: true,
-      msg: "Successful created new user.",
+      msg: "Successfully created new user.",
       newUser,
       token,
     });
