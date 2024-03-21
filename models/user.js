@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const uniqueValidator = require("mongoose-unique-validator");
-const bcrypt = require("brcryptjs");
+const bcrypt = require("bcrypt");
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     unique: true,
@@ -40,6 +41,6 @@ UserSchema.methods.comparePassword = function (passw, cb) {
   });
 };
 
-userSchema.plugin(uniqueValidator, { message: "is already taken" });
+UserSchema.plugin(uniqueValidator, { message: "is already taken" });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", UserSchema);
