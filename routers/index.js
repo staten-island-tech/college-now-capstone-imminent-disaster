@@ -10,5 +10,6 @@ router.delete("/decks/:id", deckController.deleteDeck);
 router.post("/register", authController.register);
 router.post("/login", authController.login);
 router.get("/protected", authController.authCheck, authController.protected);
+router.post("/uploadTest", deckController.upload, deckController.homePage);
 
 module.exports = router;
