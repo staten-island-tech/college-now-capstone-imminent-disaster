@@ -13,7 +13,7 @@ const deckSchema = new Schema({
     type: String,
     trim: true,
   },
-  photo: String,
+  image: String,
 });
 
 deckSchema.pre("save", function (next) {
