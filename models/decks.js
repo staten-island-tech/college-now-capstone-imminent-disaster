@@ -16,6 +16,8 @@ const deckSchema = new Schema({
   image: String,
 });
 
+// foreign field ref.populate so deck has reference to user
+
 deckSchema.pre("save", function (next) {
   if (!this.isModified("name")) {
     next();
