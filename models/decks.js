@@ -14,6 +14,11 @@ const deckSchema = new Schema({
     trim: true,
   },
   image: String,
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 // foreign field ref.populate so deck has reference to user

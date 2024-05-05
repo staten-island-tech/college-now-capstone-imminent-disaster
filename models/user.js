@@ -13,13 +13,18 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  decks: Array,
   tokens: [
     {
       token: {
         type: String,
         required: true,
       },
+    },
+  ],
+  decks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Deck",
     },
   ],
 });
