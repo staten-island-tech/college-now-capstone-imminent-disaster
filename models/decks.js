@@ -14,6 +14,10 @@ const deckSchema = new Schema({
     trim: true,
   },
   image: String,
+  cards: {
+    type: Array,
+    required: "Please add cards to your deck."
+  }
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
