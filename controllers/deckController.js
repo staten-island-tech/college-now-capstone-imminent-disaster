@@ -40,6 +40,7 @@ exports.createDeck = async (req, res) => {
     const deck = new Deck(req.body);
     // deck.photo = req.file.path;
     await deck.save();
+    res.json(deck);
     console.log(deck.name);
   } catch (error) {
     res.status(500).json(error);
