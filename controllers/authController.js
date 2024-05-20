@@ -37,18 +37,19 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      throw new Error("Unable to login");
+      throw new Error("no user");
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     const token = await generateToken(user);
     if (!isMatch) {
-      throw new Error("Unable to login");
+      throw new Error("dont match");
     }
+
     res.send({ user, token });
   } catch (error) {
-    console.log(error);
-    res.status(400).send("User not found.");
+    console.error(error);
+    res.status(400).send("user not found");
   }
 };
 

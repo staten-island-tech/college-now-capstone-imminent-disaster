@@ -12,6 +12,6 @@ router.post("/register", authController.register);
 router.post("/login", authController.login);
 router.get("/protected", authController.authCheck, authController.protected);
 router.post("/uploadTest", deckController.upload, deckController.homePage);
-router.get("/user", userController.getUser);
+router.get("/user/:username", userController.getUser);
 
 module.exports = router;
