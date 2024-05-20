@@ -21,10 +21,11 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getProfile = async (req, res) => {
+exports.getUser = async (req, res) => {
   try {
-    const profile = await user.find({ username: user.username });
-    res.json(profile);
+    const profile = await User.find({ username: req.body.username });
+    const answer = res.json(profile);
+    return answer;
   } catch (error) {
     console.log(error);
     console.log("get error");
@@ -33,7 +34,7 @@ exports.getProfile = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const user = await user.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     const updates = Object.keys(req.body);
     console.log(updates);
     res.json(updates);
