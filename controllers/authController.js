@@ -46,7 +46,6 @@ exports.login = async (req, res) => {
       throw new Error("Unable to login");
     }
     res.send({ user, token });
-    console.log(user.username);
   } catch (error) {
     console.log(error);
     res.status(400).send("User not found.");
