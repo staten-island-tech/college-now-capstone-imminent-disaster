@@ -38,7 +38,7 @@ exports.homePage = async (req, res) => {
 exports.createDeck = async (req, res) => {
   try {
     const deck = new Deck(req.body);
-    // deck.photo = req.file.path;
+    deck.photo = req.file.path;
     await deck.save();
     console.log(deck.name);
   } catch (error) {
