@@ -1,6 +1,7 @@
 const Deck = require("../models/decks");
 const path = require("path");
 const multer = require("multer");
+const User = require("../models/user");
 
 const multerOptions = {
   storage: multer.diskStorage({
@@ -28,8 +29,7 @@ exports.upload = multer(multerOptions).single("photo");
 exports.homePage = async (req, res) => {
   try {
     const decks = await Deck.find({});
-    console.log(req.name);
-    res.json([decks, req.name]);
+    res.json(decks);
   } catch (error) {
     console.log(error);
   }

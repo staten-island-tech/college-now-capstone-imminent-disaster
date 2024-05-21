@@ -34,7 +34,8 @@ exports.login = async (req, res) => {
   try {
     let username = req.body.username;
     let password = req.body.password;
-    const user = await User.findOne({ username });
+    const person = await User.findOne({ username });
+    const user = await person.populate("decks");
 
     if (!user) {
       throw new Error("no user");
