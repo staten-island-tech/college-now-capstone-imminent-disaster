@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const UserSchema = new Schema({
   username: {
     type: String,
-    unique: true,
     required: true,
   },
   password: {
@@ -31,6 +30,7 @@ const UserSchema = new Schema({
 
 UserSchema.pre("save", async function (next) {
   const user = this;
+  console.log("Saving user:", user.username);
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }

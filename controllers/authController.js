@@ -5,7 +5,7 @@ require("dotenv").config({ path: "variables.env" });
 
 const generateToken = async function (user) {
   const token = jwt.sign({ _id: user._id }, `${process.env.SECRET}`, {
-    expiresIn: 60 * 60,
+    expiresIn: 60 * 120,
   });
   return token;
 };
@@ -35,12 +35,11 @@ exports.login = async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     const person = await User.findOne({ username });
-    const user = await person.populate("decks");
 
-    if (!user) {
+    if (!person) {
       throw new Error("no user");
     }
-
+    const user = await person.populate("decks");
     const isMatch = await bcrypt.compare(password, user.password);
     const token = await generateToken(user);
     if (!isMatch) {
@@ -57,6 +56,7 @@ exports.login = async (req, res) => {
 exports.authCheck = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
+    console.log(token);
     const decoded = jwt.verify(token, `${process.env.SECRET}`);
     const user = await User.findOne({
       _id: decoded._id,
@@ -75,6 +75,7 @@ exports.authCheck = async (req, res, next) => {
 
 exports.protected = async (req, res) => {
   let user = req.user;
+  console.log(user);
   try {
     res.json({ user });
   } catch (error) {

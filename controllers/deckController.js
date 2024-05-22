@@ -38,7 +38,7 @@ exports.homePage = async (req, res) => {
 exports.createDeck = async (req, res) => {
   try {
     const deck = new Deck(req.body);
-    // deck.photo = req.file.path;
+    console.log(deck);
     await deck.save();
     res.json(deck);
     console.log(deck.name);
@@ -65,7 +65,7 @@ exports.deleteDeck = async (req, res) => {
     if (!deck) {
       res.status(404).send();
     }
-    res.send(`${shop} was removed`);
+    res.send(`${deck} was removed`);
   } catch (error) {
     res.status(500).send(error);
   }
