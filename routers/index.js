@@ -4,6 +4,7 @@ const authController = require("../controllers/authController");
 const deckController = require("../controllers/deckController");
 
 router.get("/", deckController.homePage);
+router.get("/find", deckController.getDeck);
 router.post("/add", deckController.createDeck);
 router.patch("/decks/:id", deckController.updateDeck);
 router.delete("/decks/:id", deckController.deleteDeck);

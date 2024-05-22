@@ -47,6 +47,20 @@ exports.createDeck = async (req, res) => {
   }
 };
 
+exports.getDeck = async (req, res) => {
+  try {
+    const _id = req.body.id;
+    const deck = await Deck.findOne({ _id });
+    if (!deck) {
+      throw new Error("no deck");
+    }
+    res.send(deck);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send("deck not found");
+  }
+};
+
 exports.updateDeck = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id);
