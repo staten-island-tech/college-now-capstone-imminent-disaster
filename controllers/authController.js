@@ -56,7 +56,6 @@ exports.login = async (req, res) => {
 exports.authCheck = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
-    console.log(token);
     const decoded = jwt.verify(token, `${process.env.SECRET}`);
     const user = await User.findOne({
       _id: decoded._id,

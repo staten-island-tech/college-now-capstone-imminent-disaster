@@ -28,7 +28,8 @@ exports.upload = multer(multerOptions).single("photo");
 
 exports.homePage = async (req, res) => {
   try {
-    const decks = await Deck.find({});
+    const userId = req.query.creator;
+    const decks = await Deck.find({ creator: userId });
     res.json(decks);
   } catch (error) {
     console.log(error);
@@ -38,7 +39,6 @@ exports.homePage = async (req, res) => {
 exports.createDeck = async (req, res) => {
   try {
     const deck = new Deck(req.body);
-    console.log(deck);
     await deck.save();
     res.json(deck);
     console.log(deck.name);
@@ -49,11 +49,13 @@ exports.createDeck = async (req, res) => {
 
 exports.getDeck = async (req, res) => {
   try {
-    const _id = req.body.id;
-    const deck = await Deck.findOne({ _id });
+    const id = req.query.id;
+    console.log("id", id);
+    const deck = await Deck.find({ _id: id });
     if (!deck) {
       throw new Error("no deck");
     }
+    console.log(deck);
     res.send(deck);
   } catch (error) {
     console.error(error);
@@ -79,7 +81,6 @@ exports.deleteDeck = async (req, res) => {
     if (!deck) {
       res.status(404).send();
     }
-    res.send(`${deck} was removed`);
   } catch (error) {
     res.status(500).send(error);
   }
